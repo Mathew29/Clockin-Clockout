@@ -19,16 +19,18 @@ useEffect(() => {
     hours = hours ? hours : 12; //the hour 0 should be 12
     minute = minute < 10 ? '0' + minute : minute
     
+    let timer = setInterval(() => {
+        let second = today.getSeconds() + 1 // +1 to fix minute changing at 59 seconds
+        second = second < 10 ? '0' + second : second
+        second = second === 60 ? '00' : second // show 00 instead of 60 seconds
+        setSeconds(String(second))
+
+    }, 1000)
     setHour(String(hours))
     setMinutes(String(minute))
     
     setAmPm(ampm)
 
-    let timer = setInterval(() => {
-        let second = today.getSeconds()
-        second = second < 10 ? '0' + second : second
-        setSeconds(String(second))
-    }, 1000)
 
     return () => {
         clearInterval(timer)
